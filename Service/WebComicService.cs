@@ -3,6 +3,7 @@ using Domain.Model;
 using Newtonsoft.Json;
 using System;
 using System.Net;
+using System.Net.Cache;
 using System.Threading.Tasks;
 
 namespace Service
@@ -12,6 +13,9 @@ namespace Service
     /// </summary>
     public  class WebComicService
     {
+
+        private static WebComic _actualComic;
+
         /// <summary>
         /// Get the day's actual comic
         /// </summary>
@@ -24,11 +28,19 @@ namespace Service
             {
                 string json = "";
                 using (WebClient wc = new WebClient())
-                {                    
-                    json = await wc.DownloadStringTaskAsync(actualURL);                    
+                {
+                    wc.CachePolicy = new RequestCachePolicy(RequestCacheLevel.Default);
+                    json = await wc.DownloadStringTaskAsync(actualURL);
+                    
                 }
 
+                //Deserialize the web comic data into Class
                 WebComic webComic = JsonConvert.DeserializeObject<WebComic>(json);
+                webComic.IsActual = true;
+
+                //persist the actual web comic info
+                _actualComic = webComic;
+                
 
                 response.Data = webComic;
                 response.Success = true;
@@ -61,6 +73,10 @@ namespace Service
                 }
 
                 WebComic webComic = JsonConvert.DeserializeObject<WebComic>(json);
+
+                //validate actual webcomic with response data
+                webComic.IsActual = (webComic.Num == _actualComic.Num);
+
 
                 response.Data = webComic;
                 response.Success = true;

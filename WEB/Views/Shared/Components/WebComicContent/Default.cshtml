@@ -5,7 +5,7 @@
     ViewData["image-title"] = Model.Title;
 }
 
-<h3>@Model.Title</h3>
+<h3 class="img-title">@Model.Title</h3>
 <div class="container main-content">
     <main role="main" class="pb-3">
 
@@ -30,6 +30,14 @@
     </main>
 </div>
 <div class="nav-bar">
-    <a href="@Url.Action("Comic","Home",new {code=Model.Num-1 })"><< Previous</a>
-    <a href="javascript:void()">Next >></a>
+
+    @if (Model.Num>1)
+    {
+        <a class="btn-prev" href="@Url.Action("Comic", "Home", new { code = Model.Num - 1 })">Previous</a>
+    }
+
+    @if (!Model.IsActual)
+    {
+        <a class="btn-next" href="@Url.Action("Comic", "Home", new { code = Model.Num + 1 })">Next >></a>
+    }
 </div>

@@ -16,6 +16,8 @@ namespace Domain.Model
         public string Img { get; set; }
         public string Title { get; set; }
         public string Day { get; set; }
+
+        public bool IsActual { get; set; }
     }
 }
 
