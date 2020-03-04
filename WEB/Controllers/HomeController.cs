@@ -11,6 +11,8 @@ using WEB.Models;
 
 namespace WEB.Controllers
 {
+
+    
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -30,7 +32,7 @@ namespace WEB.Controllers
             return View(model);
         }
 
-        [HttpGet]
+        [HttpGet(Name ="comic")]
         public async Task<IActionResult> Comic(int code)
         {
             var response = await _service.GetWebComic(code);
