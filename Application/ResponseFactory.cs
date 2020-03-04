@@ -7,7 +7,7 @@ namespace Application
 {
     public class ResponseFactory
     {
-        public static IResponse GetResponse() {
+        public static Response GetResponse() {
             return new Response();
         }
     }

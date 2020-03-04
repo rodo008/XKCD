@@ -12,9 +12,9 @@ namespace WEB.Views.Shared.Components.WebComic
         public WebComicContentViewComponent()
         { }
 
-        public async Task<IViewComponentResult> InvokeAsync()        
+        public async Task<IViewComponentResult> InvokeAsync(Domain.Model.WebComic webComic )        
         {
-            return View();
+            return View(webComic);
         }
     }
 }

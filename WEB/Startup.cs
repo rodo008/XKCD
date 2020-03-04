@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Service;
 
 namespace WEB
 {
@@ -36,6 +38,10 @@ namespace WEB
                 builder.AddRazorRuntimeCompilation();
             }
 #endif
+            LoadGeneralSettings();
+            services.AddTransient<WebComicService>();
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,5 +71,16 @@ namespace WEB
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+
+
+        private void LoadGeneralSettings()
+        {
+            var generalSettins = GeneralSettings.Instance;
+
+            generalSettins.ActualWebComicUrl = Configuration.GetValue<String>("ActualWebComicUrl");
+            generalSettins.WebComicUrlTpl = Configuration.GetValue<String>("WebComicUrlTpl");
+        }
     }
+
+    
 }

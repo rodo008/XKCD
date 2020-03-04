@@ -11,7 +11,7 @@ namespace Application
         public string Message { get ; set; }        
         public Object Data { set; get; } 
 
-        public T getData<T>() where T : class
+        public T GetData<T>() where T : class
         {
             if (Data.GetType() == typeof(T))
                 return (T)Data;
