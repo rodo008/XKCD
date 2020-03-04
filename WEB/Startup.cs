@@ -13,9 +13,12 @@ namespace WEB
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+
+        IWebHostEnvironment currentEnv; 
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            currentEnv = env;
         }
 
         public IConfiguration Configuration { get; }
@@ -24,6 +27,15 @@ namespace WEB
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            IMvcBuilder builder = services.AddRazorPages();
+
+#if DEBUG
+            if (currentEnv.IsDevelopment())
+            {
+                builder.AddRazorRuntimeCompilation();
+            }
+#endif
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
