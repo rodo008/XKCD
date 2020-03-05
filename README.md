@@ -15,4 +15,6 @@ E) Web : Its a simple MVC project built with asp net core. In this We used ViewC
 The WebComicService class is persisted into controller scoped per request. This config is placed in the Startup.cs file.
   services.AddTransient<WebComicService>(); more info here: https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-3.1 on Service lifetimes Section.
   
+  NOTE: The provided Urls were placed in appsettings.json file.
+  
   best regards!
