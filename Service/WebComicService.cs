@@ -21,12 +21,10 @@ namespace Service
         /// Get the day's actual comic
         /// </summary>
         /// <returns></returns>
-        public async  Task<Response> GetTodayComic() {
+        public async  Task<Response> GetTodayComic(string comicUrl) {
             
             var response = ResponseFactory.GetResponse();
-            var comicUrl = GeneralSettings.Instance.TodayComicUrl;
-
-
+            
             //Get response data
             response = await GetComicFromUrl(comicUrl);
             
@@ -52,11 +50,11 @@ namespace Service
         /// </summary>
         /// <param name="code"></param>
         /// <returns>Response with data</returns>
-        public async Task<Response> GetComicByCode(int code)
+        public async Task<Response> GetComicByCode(int code,string urlTpl)
         {
 
             var response = ResponseFactory.GetResponse();
-            var comicUrl = String.Format(GeneralSettings.Instance.ComicUrlTpl, code);            
+            var comicUrl = String.Format(urlTpl, code);            
 
 
             //Get response data
@@ -71,7 +69,7 @@ namespace Service
             {
                 //validate actual webcomic with response data
                 var webComic = response.GetData<WebComic>();
-                webComic.IsTodayComic = (webComic.Num == _todaysComic.Num);
+                webComic.IsTodayComic = (webComic.Num == _todaysComic?.Num);
             }
 
             return response;
@@ -84,7 +82,7 @@ namespace Service
         /// </summary>
         /// <param name="siteUrl">Remote URL Path</param>
         /// <returns></returns>
-        private async Task<Response> GetComicFromUrl(string siteUrl)
+        public async Task<Response> GetComicFromUrl(string siteUrl)
         {
             var response = ResponseFactory.GetResponse();
             

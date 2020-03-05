@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Application;
 using Domain.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -30,7 +31,7 @@ namespace WEB.Controllers
         {
 
             //get data from remote using comic service
-            var response =await _service.GetTodayComic();
+            var response =await _service.GetTodayComic(GeneralSettings.Instance.TodayComicUrl);
 
 
             if (response.Success) 
@@ -60,7 +61,7 @@ namespace WEB.Controllers
         {
 
             //get data from remote using comic service
-            var response = await _service.GetComicByCode(code);
+            var response = await _service.GetComicByCode(code, GeneralSettings.Instance.ComicUrlTpl);
             
 
             if (response.Success)
