@@ -36,7 +36,7 @@
         <a class="btn-prev" href="@Url.Action("Comic", "Home", new { code = Model.Num - 1 })">Previous</a>
     }
 
-    @if (!Model.IsActual)
+    @if (!Model.IsTodayComic)
     {
         <a class="btn-next" href="@Url.Action("Comic", "Home", new { code = Model.Num + 1 })">Next >></a>
     }

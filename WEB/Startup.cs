@@ -77,8 +77,8 @@ namespace WEB
         {
             var generalSettins = GeneralSettings.Instance;
 
-            generalSettins.ActualWebComicUrl = Configuration.GetValue<String>("ActualWebComicUrl");
-            generalSettins.WebComicUrlTpl = Configuration.GetValue<String>("WebComicUrlTpl");
+            generalSettins.TodayComicUrl = Configuration.GetValue<String>("TodayComicUrl");
+            generalSettins.ComicUrlTpl = Configuration.GetValue<String>("ComicUrlTpl");
         }
     }
 

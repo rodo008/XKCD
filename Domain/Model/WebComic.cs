@@ -17,7 +17,7 @@ namespace Domain.Model
         public string Title { get; set; }
         public string Day { get; set; }
 
-        public bool IsActual { get; set; }
+        public bool IsTodayComic { get; set; }
     }
 }
 

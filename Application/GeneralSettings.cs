@@ -18,10 +18,16 @@ namespace Application
 
         private GeneralSettings() { }
 
+        /// <summary>
+        /// Today Comic resource Url 
+        /// </summary>
 
-        public String ActualWebComicUrl { get; set; }
+        public String TodayComicUrl { get; set; }
 
-        public String WebComicUrlTpl { get; set; }
+        /// <summary>
+        /// Web Comic Template resource Url for specific Comic Resource
+        /// </summary>
+        public String ComicUrlTpl { get; set; }
 
     }
 

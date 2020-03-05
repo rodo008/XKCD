@@ -14,44 +14,37 @@ namespace Service
     public  class WebComicService
     {
 
-        private static WebComic _actualComic;
+        private static WebComic _todaysComic;
+        private static int  _currentComicNum;
 
         /// <summary>
         /// Get the day's actual comic
         /// </summary>
         /// <returns></returns>
-        public async  Task<Response> GetActualWebComic() {
+        public async  Task<Response> GetTodayComic() {
+            
             var response = ResponseFactory.GetResponse();
-            var actualURL = GeneralSettings.Instance.ActualWebComicUrl;
+            var comicUrl = GeneralSettings.Instance.TodayComicUrl;
 
-            try
+
+            //Get response data
+            response = await GetComicFromUrl(comicUrl);
+            
+
+            if (response.Success)
             {
-                string json = "";
-                using (WebClient wc = new WebClient())
-                {
-                    wc.CachePolicy = new RequestCachePolicy(RequestCacheLevel.Default);
-                    json = await wc.DownloadStringTaskAsync(actualURL);
-                    
-                }
+                //validate actual webcomic with response data
+                var webComic = response.GetData<WebComic>();
 
-                //Deserialize the web comic data into Class
-                WebComic webComic = JsonConvert.DeserializeObject<WebComic>(json);
-                webComic.IsActual = true;
-
-                //persist the actual web comic info
-                _actualComic = webComic;
-                
-
-                response.Data = webComic;
-                response.Success = true;
+                webComic.IsTodayComic = true;       //set true 
+                _todaysComic = webComic;            //store the todays comic 
+                _currentComicNum = webComic.Num;    //store the current comic num
             }
-            catch (Exception ex)
-            {
-                response.Message = ex.Message;
-            }
+
 
             return response;
         }
+
 
 
         /// <summary>
@@ -59,27 +52,68 @@ namespace Service
         /// </summary>
         /// <param name="code"></param>
         /// <returns>Response with data</returns>
-        public async Task<Response> GetWebComic(int code)
+        public async Task<Response> GetComicByCode(int code)
+        {
+
+            var response = ResponseFactory.GetResponse();
+            var comicUrl = String.Format(GeneralSettings.Instance.ComicUrlTpl, code);            
+
+
+            //Get response data
+            response = await GetComicFromUrl(comicUrl);
+
+
+            response.NextAction = (code > _currentComicNum);    //if code is greater than current num then NextAction is call for user.
+            _currentComicNum = code;                            //pass user's given code to currentNum var.
+
+
+            if (response.Success)
+            {
+                //validate actual webcomic with response data
+                var webComic = response.GetData<WebComic>();
+                webComic.IsTodayComic = (webComic.Num == _todaysComic.Num);
+            }
+
+            return response;
+        }
+
+
+
+        /// <summary>
+        /// Get Commit from remote URL
+        /// </summary>
+        /// <param name="siteUrl">Remote URL Path</param>
+        /// <returns></returns>
+        private async Task<Response> GetComicFromUrl(string siteUrl)
         {
             var response = ResponseFactory.GetResponse();
-            var actualURL = String.Format(GeneralSettings.Instance.WebComicUrlTpl,code);
-
+            
             try
             {
-                string json = "";
+                String json = "";
+
+                //Using web client for get data from remote url
                 using (WebClient wc = new WebClient())
-                {                   
-                    json = await wc.DownloadStringTaskAsync(actualURL);
+                {
+                    json = await wc.DownloadStringTaskAsync(siteUrl);
+                    
                 }
 
-                WebComic webComic = JsonConvert.DeserializeObject<WebComic>(json);
 
-                //validate actual webcomic with response data
-                webComic.IsActual = (webComic.Num == _actualComic.Num);
+                //deserialize object
+                WebComic webComic = JsonConvert.DeserializeObject<WebComic>(json);
 
 
                 response.Data = webComic;
-                response.Success = true;
+                response.Success = true;                
+
+            }
+            catch (WebException ex)
+            {
+                var webResponse = (HttpWebResponse)ex.Response;
+                response.StatusCode = (int)webResponse.StatusCode;
+                response.Message = ex.Message;
+
             }
             catch (Exception ex)
             {
