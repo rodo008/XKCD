@@ -1,0 +1,49 @@
+﻿@model Domain.Model.WebComic
+
+@{
+    ViewData["Title"] = "X";
+    ViewData["image-title"] = Model.Title;
+}
+
+<h3 class="img-title">@Model.Title</h3>
+<div class="main-content">
+    <main role="main" class="pb-3">
+
+        <div class="row">
+            <div class="col col-md-12">
+                <div class="row">
+                    <div class="col col-md-12">
+                        <div class="img-container">
+                            <img src="@Model.Img" />
+                        </div>
+                    </div>
+                    <div class="col col-md-12">
+                        <div class="image-alt">
+                            <p>@Model.Alt</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-3"></div>
+        </div>
+
+    </main>
+</div>
+<div class="nav-bar">
+
+    @if (Model.Num>1)
+    {
+        <div class="pull-left">
+            <a class="btn btn-default btn-wd" href="@Url.Action("Comic", "Home", new { code = Model.Num - 1 })" style="display:inline-block;">Previous</a>
+        </div>
+    }
+
+    @if (!Model.IsTodayComic)
+    {
+        <div class="pull-right">
+            <a class="btn btn-danger btn-fill btn-wd" href="@Url.Action("Comic", "Home", new { code = Model.Num + 1 })" style="display:inline-block;">Next</a>
+        </div>
+
+    }
+    <div class="clearfix"></div>
+</div>

@@ -1,0 +1,85 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <link rel="apple-touch-icon" sizes="76x76" href="~/assets/img/apple-icon.png" />
+    <link rel="icon" type="image/png" href="~/assets/img/favicon.png" />
+    <title>Paper Bootstrap Wizard by Creative Tim | Free Bootstrap Wizard</title>
+
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+    
+    <!-- CSS Files -->
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/assets/css/paper-bootstrap-wizard.css" rel="stylesheet" />
+
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="~/assets/css/demo.css" rel="stylesheet" asp-append-version="true" />
+
+    <!-- Fonts and Icons -->
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
+    <link href="~/assets/css/themify-icons.css" rel="stylesheet">
+    <!-- Google Tag Manager -->
+    <script>
+    (function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-NKDMSK6');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <style>
+      
+    </style>
+</head>
+
+<body>
+    
+    
+    <div class="image-container set-full-height" style="background-image: url('@Url.Content("~/assets/img/paper-2.jpeg")')">
+
+
+        
+        <!--   Big container   -->
+        <div class="container">            
+            <!--      Wizard container        -->
+            <div class="wizard-container">
+                <header>
+                    <h1>XKCD</h1>
+                </header>
+                <div class="card wizard-card" data-color="red" id="wizard">
+                    @RenderBody()
+                </div>
+            </div> <!-- wizard container -->
+        </div> <!--  big container -->
+
+        <div class="footer">
+            <div class="container text-center">
+                Made with <i class="fa fa-heart heart"></i> by Rodolfo J. Espinoza Lopez.
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+<!--   Core JS Files   -->
+<script src="~/assets/js/jquery-2.2.4.min.js" type="text/javascript" asp-append-version="true"></script>
+<script src="~/assets/js/bootstrap.min.js" type="text/javascript" asp-append-version="true"></script>
+<script src="~/assets/js/jquery.bootstrap.wizard.js" type="text/javascript" asp-append-version="true"></script>
+
+<!--  Plugin for the Wizard -->
+<script src="~/assets/js/demo.js" type="text/javascript" asp-append-version="true"></script>
+<script src="~/assets/js/paper-bootstrap-wizard.js" type="text/javascript" asp-append-version="true"></script>
+
+<!--  More information about jquery.validate here: https://jqueryvalidation.org/	 -->
+<script src="~/assets/js/jquery.validate.min.js" type="text/javascript" asp-append-version="true"></script>
+
+</html>
