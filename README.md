@@ -6,7 +6,7 @@ a) Application: This project encapsuling only class around the app with common f
 
 B) Domain: This project keep the binary class (POCO) equivalent from json response in the remote site https://xkcd.com/info.0.json. This class is wrapper json from remote URL
 
-C) Service: In this project It wrapper the remote url of XKCD exposing two methods that getting today's Comic info and specific Commic info. Here we do using of json response serialization to WebComic binary class and use her as Model between the View and controller.
+C) Service: In this project It wrapper the remote url of XKCD exposing two methods that getting today's Comic info and specific Comic info. Here we do using the json response for serialization to WebComic binary class and use her as Model between the View and controller.
 
 D) UnitTestProject: Keep the solution test of the class methods
 
